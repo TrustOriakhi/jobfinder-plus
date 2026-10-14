@@ -1,0 +1,6 @@
+node_modules
+.env
+data/
+profile/master.md
+profile/settings.yaml
+scratch

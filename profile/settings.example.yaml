@@ -1,0 +1,81 @@
+# Jobfinder+ settings. Edit freely; the app reloads this on every run.
+
+candidate:
+  first_name: Alex
+  last_name: Example
+  email: alex@example.com
+  phone: "+44 7700 900000"
+  location: Manchester, UK
+  linkedin: ""
+  github: ""
+  website: ""
+  background: "Early-career developer: bootcamp graduate with two shipped side projects, no degree."
+  location_preference: "Manchester-area, hybrid or UK-remote roles"
+
+# Role families the bot hunts for. `track` picks which angle the CV is tailored towards.
+targets:
+  - track: ai_builder
+    titles: [ai engineer, ai automation engineer, ai automation specialist, automation engineer, ai implementation specialist, ai implementation engineer, ai solutions engineer, forward deployed engineer, deployment engineer, llm engineer, ai developer, ai product engineer, applied ai engineer, prompt engineer, conversational ai, voice ai, technical support engineer, support engineer, customer engineer, product engineer, junior software engineer, junior developer, full stack developer]
+    angle: Lead with what the candidate has built and shipped. Show end-to-end ownership, AI/LLM integration, testing and deployment. Keep unrelated jobs brief.
+  - track: data
+    titles: [data engineer, analytics engineer, junior data engineer, data platform engineer, etl developer, bi developer, data analyst, python developer]
+  - track: solutions
+    titles: [solutions engineer, sales engineer, solutions consultant, pre-sales, implementation specialist, implementation consultant, technical consultant, integration engineer, customer success engineer, technical account manager]
+  - track: sales
+    titles: [sales development representative, sdr, business development representative, bdr, account executive, account manager]
+
+locations:
+  # Commutable places. Other cities only pass when the role is remote.
+  local: [manchester, salford, stockport, trafford, altrincham, sale, bolton, bury, oldham, rochdale, wigan, warrington, alderley edge, wilmslow, macclesfield, knutsford, cheadle]
+  # Searches sent to boards that need a location string
+  search: [Manchester, Remote UK]
+  remote_ok: true
+
+exclude:
+  title_words: [senior, staff, principal, lead, head of, director, vp, manager of, architect, phd, intern, unpaid, commission only, french, german, dutch, spanish]
+  companies: []
+  # Roles mentioning these get dropped before scoring
+  description_phrases: [security clearance required, sc clearance, dv clearance, must be a us citizen, us persons only]
+
+salary:
+  min_gbp: 28000        # roles that state a lower max are dropped
+
+pipeline:
+  min_score: 65         # below this, a job is archived without tailoring
+  max_prepared_per_day: 10   # keeps subscription usage sensible
+  max_age_days: 14
+  discover_cron: "0 7,13,19 * * *"   # 07:00, 13:00, 19:00 daily
+
+# Company boards polled directly. Others found via LinkedIn/Reed/Adzuna links are added automatically.
+boards:
+  greenhouse: [monzo, gocardless, wise, deliveroo, tide, cleo, truelayer, autotrader, sumup, peak, polyai, stabilityai, intercom, make, anthropic, lovable]
+  lever: [palantir]
+  ashby: [synthesia, elevenlabs, incident, ramp, wayve, lindus, multiverse, pennylane, lovable, tractable, faculty, cohere, granola, n8n, zapier, attio, wordsmith, juro, stackone, causaly, fyxer, quantexa, beamery, vapi, decagon, sierra, writer, hex, dust, perplexity]
+  workable: []
+
+sources:
+  linkedin: true       # public guest search, no login
+  reed: true           # needs REED_API_KEY
+  adzuna: true         # needs ADZUNA_APP_ID + ADZUNA_APP_KEY (covers Indeed-style UK listings)
+  remoteok: true
+  weworkremotely: true
+
+# Standard application answers. The bot uses these verbatim; anything else it drafts for review.
+# CONFIRM every value below — they are placeholders until you check them.
+answers:
+  right_to_work_uk: "Yes"
+  requires_sponsorship: "No"
+  notice_period: "1 month"
+  salary_expectation: "£32,000–£40,000 depending on the role"
+  willing_to_relocate: "No — Manchester or remote"
+  earliest_start: "One month from offer"
+  how_did_you_hear: "Company careers page"
+  gender: "Prefer not to say"
+  ethnicity: "Prefer not to say"
+  disability: "Prefer not to say"
+  veteran: "No"
+
+# On the subscription (default) these map to the sonnet / opus aliases.
+models:
+  scoring: claude-sonnet-5-5
+  writing: claude-opus-5-5
